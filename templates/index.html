@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}
+Home
+{% endblock %}
+{% block body %}
+<div class="container my-4">
+    <a href="/add"><button type="button" class="btn btn-outline-dark">Add Workout</button></a>
+</div>
+{% if workouts|length == 0 %}
+<div class="container my-4">
+    <h2>No Workouts</h2>
+</div>
+
+{% else %}
+<div class="container my-4">
+    <h2>Your Workouts</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Workout</th>
+                <th scope="col">Exercise</th>
+                <th scope="col">Sets</th>
+                <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for workout in workouts %}
+            <tr>
+                <td>
+                    {{workout.name}}
+                </td>
+            </tr>
+            {% for exercise in workout.exercises %}
+            <tr>
+                <!--th scope="row">{{ workout.id}}</th-->
+                <td>{{exercise.name}}</td>
+                <td>{{exercise.sets}}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>
+                    <a type="button" href="/delete/{{workout.id}}" class="btn btn-outline-info">Delete</a>
+                    <a type="button" href="/update/{{workout.id}}" class="btn btn-outline-info">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+</div>
+{% endif %}
+
+{% endblock body %}
